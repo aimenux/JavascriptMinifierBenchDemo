@@ -1,6 +1,8 @@
-﻿# JavascriptMinifierBenchDemo
+﻿![.NET 5](https://github.com/aimenux/JavascriptMinifierBenchDemo/workflows/.NET%205/badge.svg)
+
+# JavascriptMinifierBenchDemo
 ```
-Benchmarking javascript minification using various ways
+Benchmarking various ways of javascript minification
 ```
 
 In this demo, i m using [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) library in order to benchmark various ways of javascript minification :
