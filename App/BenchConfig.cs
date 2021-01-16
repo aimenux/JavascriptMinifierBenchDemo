@@ -15,11 +15,12 @@ namespace App
             AddColumn(StatisticColumn.Min);
             AddColumn(StatisticColumn.Max);
             AddLogger(ConsoleLogger.Default);
+            AddColumn(CategoriesColumn.Default);
             AddExporter(HtmlExporter.Default);
             AddExporter(MarkdownExporter.GitHub);
             AddExporter(MarkdownExporter.Default);
             AddDiagnoser(MemoryDiagnoser.Default);
-            AddLogicalGroupRules(BenchmarkLogicalGroupRule.ByParams);
+            AddLogicalGroupRules(BenchmarkLogicalGroupRule.ByCategory);
             WithOrderer(new DefaultOrderer(SummaryOrderPolicy.FastestToSlowest));
         }
     }

@@ -28,12 +28,14 @@ namespace App
         }
 
         [Benchmark]
+        [BenchmarkCategory(nameof(BenchCategory.Light))]
         public string UsingConcat()
         {
             return string.Concat(content.Where(c => !char.IsWhiteSpace(c)));
         }
 
         [Benchmark]
+        [BenchmarkCategory(nameof(BenchCategory.Light))]
         public string UsingReplace()
         {
             var whitespaces = "  ";
@@ -54,6 +56,7 @@ namespace App
         }
 
         [Benchmark]
+        [BenchmarkCategory(nameof(BenchCategory.Light))]
         public string UsingSplitJoin()
         {
             var characters = new char[] { '\r', '\n', '\t', ' ' };
@@ -61,12 +64,14 @@ namespace App
         }
 
         [Benchmark]
+        [BenchmarkCategory(nameof(BenchCategory.Light))]
         public string UsingRegex()
         {
             return regex.Replace(content, replacement);
         }
 
         [Benchmark]
+        [BenchmarkCategory(nameof(BenchCategory.Full))]
         public string UsingAjaxmin()
         {
             var settings = new CodeSettings
@@ -78,12 +83,14 @@ namespace App
         }
 
         [Benchmark]
+        [BenchmarkCategory(nameof(BenchCategory.Full))]
         public string UsingNuglify()
         {
             return Uglify.Js(content).Code;
         }
 
         [Benchmark]
+        [BenchmarkCategory(nameof(BenchCategory.Full))]
         public string UsingWebMarkupMinAjaxmin()
         {
             var settings = new HtmlMinificationSettings
@@ -99,6 +106,7 @@ namespace App
         }
 
         [Benchmark]
+        [BenchmarkCategory(nameof(BenchCategory.Full))]
         public string UsingWebMarkupMinNuglify()
         {
             var settings = new HtmlMinificationSettings
@@ -114,6 +122,7 @@ namespace App
         }
 
         [Benchmark]
+        [BenchmarkCategory(nameof(BenchCategory.Full))]
         public string UsingWebMarkupMinCrockford()
         {
             var settings = new HtmlMinificationSettings
@@ -129,6 +138,7 @@ namespace App
         }
 
         [Benchmark]
+        [BenchmarkCategory(nameof(BenchCategory.Full))]
         public string UsingWebMarkupMinYuiCompressor()
         {
             var settings = new HtmlMinificationSettings
