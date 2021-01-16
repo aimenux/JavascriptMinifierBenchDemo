@@ -7,10 +7,10 @@ Benchmarking various ways of javascript minification
 
 In this demo, i m using [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) library in order to benchmark various ways of javascript minification.
 
-> :beginner: Minification means removing all unnecessary characters, such as spaces, new lines, comments, without changing the functionality of the source code.
+> :beginner: `Minification` means removing all unnecessary characters, such as spaces, new lines, comments, without changing the functionality of the source code.
 >
 >
-> Light adhoc ways (not for production) :
+> **Light** adhoc ways (not for production) :
 >> :one: Using `concat`
 >>
 >> :two: Using `replace`
@@ -19,7 +19,7 @@ In this demo, i m using [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDot
 >>
 >> :four: Using `compiled regex`
 >
-> Full robust ways (ready for production) :
+> **Full** robust ways (ready for production) :
 >> :five: Using [`Ajaxmin library`](https://github.com/microsoft/ajaxmin)
 >>
 >> :six: Using [`nuglify library`](https://github.com/trullock/NUglify)
