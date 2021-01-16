@@ -53,7 +53,7 @@ namespace App
         }
 
         [Benchmark]
-        public string UsingUglify()
+        public string UsingNuglify()
         {
             return Uglify.Js(content).Code;
         }
