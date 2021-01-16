@@ -6,7 +6,8 @@ Benchmarking various ways of javascript minification
 ```
 
 In this demo, i m using [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) library in order to benchmark various ways of javascript minification.
-Minification means removing all unnecessary characters, such as spaces, new lines, comments, without changing the functionality of the source code.
+
+> :information_source: Minification means removing all unnecessary characters, such as spaces, new lines, comments, without changing the functionality of the source code.
 
 >
 > Light adhoc ways (not for production) :
