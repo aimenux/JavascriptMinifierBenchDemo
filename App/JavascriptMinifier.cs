@@ -1,8 +1,14 @@
 ﻿using BenchmarkDotNet.Attributes;
+using Microsoft.Ajax.Utilities;
 using NUglify;
 using System;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
+using WebMarkupMin.Core;
+using WebMarkupMin.MsAjax;
+using WebMarkupMin.NUglify;
+using WebMarkupMin.Yui;
 
 namespace App
 {
@@ -22,15 +28,23 @@ namespace App
         }
 
         [Benchmark]
+        public string UsingConcat()
+        {
+            return string.Concat(content.Where(c => !char.IsWhiteSpace(c)));
+        }
+
+        [Benchmark]
         public string UsingReplace()
         {
+            var whitespaces = "  ";
             var result = content
                 .Replace("\r", replacement)
                 .Replace("\t", replacement)
                 .Replace("\n", replacement)
-                .Replace("\r\n", replacement);
+                .Replace("\r\n", replacement)
+                .Replace(whitespaces, replacement)
+                .Replace(Environment.NewLine, replacement);
 
-            var whitespaces = "  ";
             while (result.Contains(whitespaces))
             {
                 result = result.Replace(whitespaces, replacement);
@@ -42,7 +56,7 @@ namespace App
         [Benchmark]
         public string UsingSplitJoin()
         {
-            var characters = new char[] {'\r', '\n', '\t', ' '};
+            var characters = new char[] { '\r', '\n', '\t', ' ' };
             return string.Join(replacement, content.Split(characters, StringSplitOptions.RemoveEmptyEntries));
         }
 
@@ -53,9 +67,80 @@ namespace App
         }
 
         [Benchmark]
+        public string UsingAjaxmin()
+        {
+            var settings = new CodeSettings
+            {
+                MinifyCode = true,
+            };
+            var minifier = new Minifier();
+            return minifier.MinifyJavaScript(content, settings);
+        }
+
+        [Benchmark]
         public string UsingNuglify()
         {
             return Uglify.Js(content).Code;
+        }
+
+        [Benchmark]
+        public string UsingWebMarkupMinAjaxmin()
+        {
+            var settings = new HtmlMinificationSettings
+            {
+                MinifyEmbeddedCssCode = false,
+                MinifyInlineCssCode = false,
+                MinifyEmbeddedJsCode = true,
+                MinifyInlineJsCode = true
+            };
+
+            var minifier = new HtmlMinifier(settings, new NullCssMinifier(), new MsAjaxJsMinifier());
+            return minifier.Minify(content).MinifiedContent;
+        }
+
+        [Benchmark]
+        public string UsingWebMarkupMinNuglify()
+        {
+            var settings = new HtmlMinificationSettings
+            {
+                MinifyEmbeddedCssCode = false,
+                MinifyInlineCssCode = false,
+                MinifyEmbeddedJsCode = true,
+                MinifyInlineJsCode = true
+            };
+
+            var minifier = new HtmlMinifier(settings, new NullCssMinifier(), new NUglifyJsMinifier());
+            return minifier.Minify(content).MinifiedContent;
+        }
+
+        [Benchmark]
+        public string UsingWebMarkupMinCrockford()
+        {
+            var settings = new HtmlMinificationSettings
+            {
+                MinifyEmbeddedCssCode = false,
+                MinifyInlineCssCode = false,
+                MinifyEmbeddedJsCode = true,
+                MinifyInlineJsCode = true
+            };
+
+            var minifier = new HtmlMinifier(settings, new NullCssMinifier(), new CrockfordJsMinifier());
+            return minifier.Minify(content).MinifiedContent;
+        }
+
+        [Benchmark]
+        public string UsingWebMarkupMinYuiCompressor()
+        {
+            var settings = new HtmlMinificationSettings
+            {
+                MinifyEmbeddedCssCode = false,
+                MinifyInlineCssCode = false,
+                MinifyEmbeddedJsCode = true,
+                MinifyInlineJsCode = true
+            };
+
+            var minifier = new HtmlMinifier(settings, new NullCssMinifier(), new YuiJsMinifier());
+            return minifier.Minify(content).MinifiedContent;
         }
     }
 }
